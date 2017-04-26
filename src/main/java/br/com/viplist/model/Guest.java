@@ -17,6 +17,13 @@ public class Guest {
 	
 	private String phone;
 	
+	public Guest(){}
+	
+	public Guest(String name, String email, String phone) {
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+	}
 	public Long getId() {
 		return id;
 	}
