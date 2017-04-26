@@ -49,3 +49,7 @@ local.properties
 .scala_dependencies
 .worksheet
 /target/
+
+#Eclipse
+.classpath
+.project
