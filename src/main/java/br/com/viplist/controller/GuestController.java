@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.emailsender.service.EmailService;
 import br.com.viplist.model.Guest;
 import br.com.viplist.repository.GuestRepository;
 
@@ -38,9 +39,21 @@ public class GuestController {
 		
 		Guest guest = new Guest(name, email, phone);
 		guestRepository.save(guest);
-				
+		new EmailService().send(name, email);
 		loadGuestList(model);
-		return "guestlist";
+		return "redirect:guestlist";
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public String delete(@RequestParam("guest-id") String id, @RequestParam("name") String name, @RequestParam("email") String email,
+			@RequestParam("phone") String phone, Model model) {
+		
+		Guest guest = new Guest(name, email, phone);
+		guest.setId(Long.valueOf(id));
+		guestRepository.delete(guest);
+		
+		loadGuestList(model);
+		return "redirect:guestlist";
 	}
 
 }
